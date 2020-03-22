@@ -1,0 +1,7 @@
+FROM nginx:1.10
+
+ADD vhost.conf /etc/nginx/conf.d/default.conf
+
+COPY . /var/www
+
+WORKDIR /var/www
