@@ -2,6 +2,10 @@
 
 This project provides a minimal Docker-Setup for the usage of Laravel with MySQL.
 
+## Configuring Environment
+
+Rename .env.example and edit it to .env to ensure your environment is setup.
+
 ## Running Migrations
 
 Log into the running app container (phpentrypoint) and type out the following command:
