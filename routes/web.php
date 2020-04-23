@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Just for Development - (otherwise requests from Vue CLI dev server would be blocked)
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
+
+Auth::routes();
+
+Route::get('/user/logout', function() {
+    Auth::logout();
+    return response('Successfully logged out', 200);
 });
+
+
+Route::middleware(['auth'])->group(function () {
+
+    // Get User
+    Route::get('/users/current', function() { return request()->user(); });
+
+    // SPA Routes (all other routes)
+    Route::get('/{any}', 'SpaController@index')->where('any', '.*');
+
+
+});
+
